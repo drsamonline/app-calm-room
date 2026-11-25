@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm room — a fire to tend, a place to return to</title>
+<meta name="description" content="A fire that burns down on its own and asks nothing of you, a landscape generated from a seed, and sand you can rake. No goals, no scores, no ending.">
+<meta name="theme-color" content="#0e1114">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root{--bg:#0e1114;--panel:#151a1f;--ink:#e8e6e1;--muted:#98a0a8;--line:#28303a;--accent:#b4562a;--accent-ink:#120c08;
+        --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+  body{font-family:var(--sans);line-height:1.55;font-size:16px;min-height:100vh}
+  header.top{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--line)}
+  header.top h1{font-size:17px;margin:0;letter-spacing:.02em;font-weight:600}
+  header.top p{margin:0;color:var(--muted);font-size:13px}
+  header.top a{margin-left:auto;color:var(--accent);font-size:13px;text-decoration:none;border-bottom:1px solid currentColor}
+  main{max-width:900px;margin:0 auto;padding:18px}
+  .tabs{display:flex;gap:6px;margin-bottom:14px}
+  .tab{font:inherit;font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--muted);cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--panel);color:var(--ink);border-color:var(--muted)}
+  .status{margin:0 0 14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--muted);font-size:13px;display:none}
+  .status.show{display:block}
+  .status.bad{border-color:#6b2b2b;color:#e2b4b4}
+  .status.warn{border-color:#5d4a22;color:#e2d0a8}
+  canvas{display:block;width:100%;height:auto;border-radius:12px;background:#0a0d10;border:1px solid var(--line);touch-action:none}
+  .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .bar .grow{flex:1}
+  button{font:inherit;font-size:14px;padding:10px 16px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+  button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+  button.small{padding:5px 10px;font-size:12px;border-radius:7px}
+  .hint{color:var(--muted);font-size:12px}
+  label.fld{display:block;font-size:11px;color:var(--muted);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+  input[type=text],input[type=number],select{font:inherit;font-size:14px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#101418;color:var(--ink)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  footer{max-width:900px;margin:0 auto;padding:18px 20px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Calm room</h1>
+  <p>A fire that burns down on its own, a place you can return to, and sand you can rake. Nothing here scores you.</p>
+  <a href="../index.html">about</a>
+</header>
+
+<main>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-ember" aria-selected="true" aria-controls="panel-ember">Ember</button>
+    <button class="tab" role="tab" id="tab-horizon" aria-selected="false" aria-controls="panel-horizon">Horizon</button>
+    <button class="tab" role="tab" id="tab-garden" aria-selected="false" aria-controls="panel-garden">Garden</button>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+
+  <div id="panel-ember" role="tabpanel" aria-labelledby="tab-ember">
+    <canvas id="fireCanvas" width="900" height="420" aria-label="A fire whose size shows how long it has been since you tended it"></canvas>
+    <div class="bar">
+      <button class="primary" type="button" id="tendBtn">Tend the fire</button>
+      <span class="grow"></span>
+      <span class="hint" id="fireNote"></span>
+    </div>
+    <p class="hint" style="margin-top:10px">It burns down while you are away and nothing is taken from you. There is no streak to break, no lock, and no
+      penalty beyond the fire being smaller when you come back.</p>
+  </div>
+
+  <div id="panel-horizon" role="tabpanel" aria-labelledby="tab-horizon" hidden>
+    <canvas id="horizonCanvas" width="900" height="420" aria-label="A landscape generated from a seed"></canvas>
+    <div class="row" style="margin-top:12px">
+      <div>
+        <label class="fld" for="seed">Seed — the same seed is the same place</label>
+        <input type="number" id="seed" value="7" style="width:120px">
+      </div>
+      <div>
+        <label class="fld" for="palette">Palette</label>
+        <select id="palette"></select>
+      </div>
+      <div>
+        <button type="button" class="small" id="regen">Generate</button>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:10px">A view, not a screensaver: return to the same seed and it is the same place. No goal, no score, no ending.</p>
+  </div>
+
+  <div id="panel-garden" role="tabpanel" aria-labelledby="tab-garden" hidden>
+    <canvas id="gardenCanvas" width="900" height="420" aria-label="Sand you can rake and stones you can place"></canvas>
+    <div class="bar">
+      <button type="button" class="small" id="stoneMode">Place stones instead of raking</button>
+      <button type="button" class="small" id="clearGarden">Smooth the sand</button>
+      <span class="grow"></span>
+      <span class="hint" id="gardenNote">Drag to rake. Nothing is counted.</span>
+    </div>
+  </div>
+
+  <div class="bar" style="margin-top:16px">
+    <button type="button" class="small" id="exportBtn">Export the room (.json)</button>
+    <span class="hint" id="exportNote"></span>
+  </div>
+
+  <footer>
+    Calm room keeps the fire, the seed and the garden on this device. No network, no account, no score, no streak to break.
+    <br>PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin ·
+    <a href="https://github.com/drsamonline/app-calm-room/releases/tag/app-latest">Windows, Android and Linux builds</a>
+  </footer>
+</main>
+
+<script src="web-kit.js"></script>
+<script src="export-kit.js"></script>
+<script src="calm-core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

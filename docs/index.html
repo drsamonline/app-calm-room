@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm room — a fire to tend, a place to return to</title>
+<meta name="description" content="A fire that burns down on its own and asks nothing of you, a landscape generated from a seed, and sand you can rake. No goals, no scores, no ending.">
+<meta name="theme-color" content="#0e1114">
+<style>
+  :root{--bg:#0e1114;--panel:#151a1f;--ink:#e8e6e1;--muted:#98a0a8;--line:#28303a;--accent:#b4562a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
+  main{max-width:740px;margin:0 auto;padding:48px 20px 64px}
+  h1{font-size:32px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px;font-weight:600}
+  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
+  .cta{display:inline-block;background:var(--accent);color:#120c08;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:11px}
+  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;background:var(--panel);font-size:14px;color:var(--muted)}
+  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);margin-bottom:4px}
+  h2{font-size:17px;margin:30px 0 8px;color:var(--ink)}
+  ul{padding-left:20px}li{margin:5px 0;color:var(--muted)}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#1b222a;padding:1px 5px;border-radius:4px}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
+  th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px;vertical-align:top;color:var(--muted)}
+  th{color:var(--ink);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  footer{margin-top:42px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Calm room</h1>
+  <p class="lede">A fire that burns down on its own, a place you can return to, and sand you can rake. Nothing here scores you.</p>
+
+  <a class="cta" href="play/index.html">Sit down</a>
+
+  <div class="status">
+    <b>Status</b>
+    Built and working offline: a fire whose size is a pure function of the days since you last tended it — monotonic, never rising
+    on its own, never locked, never punished; a landscape generated from a seed so the same seed is the same place; sand you can
+    rake and stones you can place, counted by nothing.
+    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-calm-room/releases/tag/app-latest">app-latest</a>.
+    <br><b>Not built</b>: sound. A fire could have a crackle; there is none here, and the app does not pretend to have one.
+  </div>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>A fire that burns down while you are away and comes back to full when you tend it.</li>
+    <li>A landscape generated from a seed — return to the same seed and it is the same place.</li>
+    <li>Sand you can rake and stones you can place. It settles. Nothing is counted.</li>
+  </ul>
+
+  <h2>What it will not do</h2>
+  <ul>
+    <li><strong>Punish you for leaving.</strong> No streak to break, no lock, no lost state — only a smaller fire when you come back.</li>
+    <li><strong>Score anything.</strong> No goal, no points, no ending, in any of the three rooms.</li>
+    <li><strong>Relight an unreadable fire at full strength.</strong> That would erase the only consequence the app exists to create; it is reported and offered for export instead.</li>
+    <li><strong>Count a tend that did not happen.</strong> A tap that is not an interaction is refused, and the app says the fire was not tended.</li>
+    <li><strong>Use a key or a network.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
+  </ul>
+
+  <h2>When things go wrong</h2>
+  <table>
+    <tr><th>Case</th><th>What happens</th></tr>
+    <tr><td>Bad input</td><td>A tend with no interaction is not counted. A palette that does not parse is refused with the value shown, and the previous scene stays on screen.</td></tr>
+    <tr><td>No network</td><td>Nothing changes: the fire, the seed and the garden are on the device.</td></tr>
+    <tr><td>Storage full or unavailable</td><td>The state is not written and the app says the fire's history will not survive — it is never shown as tended when the write failed.</td></tr>
+    <tr><td>Corrupt saved state</td><td>Reported and offered for export; the fire is <em>not</em> quietly relit at full strength.</td></tr>
+  </table>
+
+  <h2>How to run it</h2>
+  <ul>
+    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
+    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
+    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code> — the spec's countable “done means” is asserted there.</li>
+  </ul>
+
+  <footer>
+    PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin ·
+    <a href="https://github.com/drsamonline/app-calm-room">source</a>
+  </footer>
+</main>
+</body>
+</html>

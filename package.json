@@ -1,0 +1,15 @@
+{
+  "name": "app-calm-room",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A fire that burns down on its own and asks nothing of you, a landscape generated from a seed, and sand you can rake. No goals, no scores, no ending.",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "Dr Sohil Momin",
+  "scripts": {
+    "test": "node tests/self-tests.js && node tests/page-smoke.js && node tests/ui-tests.js",
+    "test:engine": "node tests/self-tests.js",
+    "test:shape": "node tests/page-smoke.js",
+    "test:ui": "node tests/ui-tests.js"
+  },
+  "devDependencies": { "jsdom": "^24.0.0" }
+}
