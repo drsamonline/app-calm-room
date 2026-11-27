@@ -166,8 +166,8 @@
     if (isNaN(seed)) { setStatus("warn", "A seed has to be a number; the previous place is still on screen."); return; }
     state.seed = seed;
     state.paletteId = els.palette.value;
-    persist();
-    drawHorizon();
+    var saved = persist();
+    drawHorizon();if (saved) 
     setStatus("ok", "Seed " + seed + ", palette \u201c" + (C.paletteById(state.paletteId) || C.DEFAULT_PALETTE).name + "\u201d. The same seed will always be this place.");
   }
 
@@ -271,8 +271,8 @@
 
   els.clearGarden.addEventListener("click", function () {
     state.garden = C.emptyGarden();
-    persist();
-    drawGarden();
+    var saved = persist();
+    drawGarden();if (saved) 
     setStatus("ok", "The sand is smooth again.");
   });
 
