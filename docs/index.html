@@ -1,91 +1,93 @@
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calm room — a fire to tend, a place to return to</title>
-<meta name="description" content="A fire that burns down on its own and asks nothing of you, a landscape generated from a seed, and sand you can rake. No goals, no scores, no ending.">
-<meta name="theme-color" content="#0e1114">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm room — a place that never punishes you</title>
+<meta name="description" content="A quiet room that never punishes you for being away.">
+<meta name="theme-color" content="#0f1513">
 <style>
-  :root{--bg:#0e1114;--panel:#151a1f;--ink:#e8e6e1;--muted:#98a0a8;--line:#28303a;--accent:#b4562a}
+  :root{--bg:#0f1513;--panel:#151d1a;--line:#22302b;--fg:#d6e5de;--dim:#7b918a;--moss:#7fb08c;--sand:#cbb894;
+        --serif:Georgia,"Iowan Old Style",serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+        --s0:clamp(11px,.4vw + 10px,12.5px);--s1:clamp(14.5px,.6vw + 12px,18px);--s2:clamp(19px,1.3vw + 14px,27px);
+        --display:clamp(30px,5.2vw,62px);--gut:clamp(18px,3.6vw,64px)}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
-  main{max-width:740px;margin:0 auto;padding:48px 20px 64px}
-  h1{font-size:32px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px;font-weight:600}
-  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
-  .cta{display:inline-block;background:var(--accent);color:#120c08;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:11px}
-  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;background:var(--panel);font-size:14px;color:var(--muted)}
-  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);margin-bottom:4px}
-  h2{font-size:17px;margin:30px 0 8px;color:var(--ink)}
-  ul{padding-left:20px}li{margin:5px 0;color:var(--muted)}
-  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#1b222a;padding:1px 5px;border-radius:4px}
-  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
-  th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px;vertical-align:top;color:var(--muted)}
-  th{color:var(--ink);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-  footer{margin-top:42px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-  a{color:var(--accent)}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);
+       background-image:radial-gradient(circle at 30% 20%,rgba(127,176,140,.09),transparent 55%),
+                        radial-gradient(circle at 75% 70%,rgba(203,184,148,.07),transparent 50%)}
+  .room{max-width:1660px;margin:0 auto;padding:0 0 60px}
+  .bar{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:10px var(--gut);border-bottom:1px solid var(--line);
+       font-family:var(--mono);font-size:var(--s0);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .bar b{color:var(--moss);font-weight:400}
+  .head{display:grid;gap:clamp(16px,2.4vw,40px);padding:clamp(26px,3.6vw,56px) var(--gut) clamp(16px,2vw,28px);grid-template-columns:1fr}
+  @media (min-width:980px){.head{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:end}}
+  h1{font-size:var(--display);line-height:1.02;margin:0;letter-spacing:-.02em;font-weight:400;color:#eaf3ee}
+  .head p{margin:12px 0 0;font-size:var(--s2);line-height:1.45;color:var(--dim);max-width:40ch}
+  .promise{border:1px solid var(--line);border-left:3px solid var(--moss);background:var(--panel);padding:12px 14px;
+           font-family:var(--mono);font-size:var(--s0);color:var(--dim);line-height:1.8}
+  .promise b{display:block;color:var(--moss);letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px}
+  /* the hearth: a soft glow, and three things you can do */
+  .hearth{display:grid;gap:clamp(12px,1.8vw,26px);padding:0 var(--gut) clamp(16px,2vw,26px);grid-template-columns:1fr}
+  @media (min-width:820px){.hearth{grid-template-columns:repeat(3,1fr)}}
+  .c{border:1px solid var(--line);background:var(--panel);padding:clamp(14px,1.8vw,24px);display:grid;gap:8px}
+  .c .k{font-family:var(--mono);font-size:var(--s0);letter-spacing:.14em;text-transform:uppercase;color:var(--moss)}
+  .c .v{font-size:var(--s1);line-height:1.65;color:#c9d9d2}
+  .c .n{font-family:var(--mono);font-size:calc(var(--s0) - .5px);color:var(--dim);margin-top:2px}
+  .glow{margin:0 var(--gut);height:clamp(60px,8vw,110px);border-radius:60px 60px 0 0;
+        background:radial-gradient(ellipse at 50% 100%,rgba(127,176,140,.35),rgba(127,176,140,0) 70%);
+        border:1px solid var(--line);border-bottom:0}
+  .cols{display:grid;gap:clamp(18px,2.6vw,46px);padding:clamp(18px,2.6vw,36px) var(--gut) 0;grid-template-columns:1fr}
+  @media (min-width:860px){.cols{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1380px){.cols{grid-template-columns:repeat(3,1fr)}}
+  h2{font-family:var(--mono);font-size:var(--s0);letter-spacing:.16em;text-transform:uppercase;color:var(--sand);margin:0 0 6px}
+  p{font-size:var(--s1);line-height:1.75;margin:0 0 12px}
+  .go{display:inline-block;border:1px solid var(--moss);color:var(--moss);padding:12px 24px;text-decoration:none;
+      font-family:var(--mono);font-size:var(--s0);letter-spacing:.16em;text-transform:uppercase;margin-top:6px}
+  .go:hover{background:var(--moss);color:#0f1513}
+  .sponsor{margin:clamp(22px,3vw,38px) var(--gut) 0;border:1px solid var(--line);border-left:3px solid var(--sand);background:var(--panel);
+           padding:12px 14px;font-family:var(--mono);font-size:var(--s0);color:var(--dim);line-height:1.6}
+  .sponsor a{color:var(--sand);text-decoration:none;border-bottom:1px solid currentColor}
+  .foot{margin:14px var(--gut) 0;font-family:var(--mono);font-size:var(--s0);color:#5d6f68;line-height:1.9}
+  .foot a{color:var(--dim)}
+</style></head>
+<body><div class="room">
+  <div class="bar"><span>a quiet room · nothing to lose</span><span><b>0</b> streaks · <b>0</b> timers running</span></div>
 
-  .sponsor{margin:24px 0 0;padding:12px 14px;border:1px solid rgba(128,128,128,.35);border-left:3px solid #c9a05a;
-           background:rgba(128,128,128,.07);border-radius:8px;font-size:12.5px;line-height:1.6}
-  .sponsor a{color:#c9a05a;text-decoration:none;border-bottom:1px solid currentColor}
-</style>
-</head>
-<body>
-<main>
-  <h1>Calm room</h1>
-  <p class="lede">A fire that burns down on its own, a place you can return to, and sand you can rake. Nothing here scores you.</p>
-
-  <a class="cta" href="play/index.html">Sit down</a>
-
-  <div class="status">
-    <b>Status</b>
-    Built and working offline: a fire whose size is a pure function of the days since you last tended it — monotonic, never rising
-    on its own, never locked, never punished; a landscape generated from a seed so the same seed is the same place; sand you can
-    rake and stones you can place, counted by nothing.
-    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-calm-room/releases/tag/app-latest">app-latest</a>.
-    <br><b>Not built</b>: sound. A fire could have a crackle; there is none here, and the app does not pretend to have one.
+  <div class="head">
+    <div>
+      <h1>Calm room</h1>
+      <p>A quiet place that never punishes you for being away — because a streak would.</p>
+    </div>
+    <div class="promise"><b>the fire never goes out</b>Leave for a month and nothing is lost, reset or scolded. The room is exactly as you left it.</div>
   </div>
 
-  <h2>What it does</h2>
-  <ul>
-    <li>A fire that burns down while you are away and comes back to full when you tend it.</li>
-    <li>A landscape generated from a seed — return to the same seed and it is the same place.</li>
-    <li>Sand you can rake and stones you can place. It settles. Nothing is counted.</li>
-  </ul>
+  <div class="hearth">
+    <div class="c"><div class="k">breathe</div><div class="v">A slow shape that grows and shrinks. No countdown, no score.</div><div class="n">it does not know how long you stayed</div></div>
+    <div class="c"><div class="k">a landscape</div><div class="v">Generated from a number, so the same room greets you the same way.</div><div class="n">nothing is uploaded or generated elsewhere</div></div>
+    <div class="c"><div class="k">put it down</div><div class="v">One line about today, kept without comment.</div><div class="n">no prompt to continue, no “come back tomorrow”</div></div>
+  </div>
 
-  <h2>What it will not do</h2>
-  <ul>
-    <li><strong>Punish you for leaving.</strong> No streak to break, no lock, no lost state — only a smaller fire when you come back.</li>
-    <li><strong>Score anything.</strong> No goal, no points, no ending, in any of the three rooms.</li>
-    <li><strong>Relight an unreadable fire at full strength.</strong> That would erase the only consequence the app exists to create; it is reported and offered for export instead.</li>
-    <li><strong>Count a tend that did not happen.</strong> A tap that is not an interaction is refused, and the app says the fire was not tended.</li>
-    <li><strong>Use a key or a network.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
-  </ul>
+  <div class="glow"></div>
 
-  <h2>When things go wrong</h2>
-  <table>
-    <tr><th>Case</th><th>What happens</th></tr>
-    <tr><td>Bad input</td><td>A tend with no interaction is not counted. A palette that does not parse is refused with the value shown, and the previous scene stays on screen.</td></tr>
-    <tr><td>No network</td><td>Nothing changes: the fire, the seed and the garden are on the device.</td></tr>
-    <tr><td>Storage full or unavailable</td><td>The state is not written and the app says the fire's history will not survive — it is never shown as tended when the write failed.</td></tr>
-    <tr><td>Corrupt saved state</td><td>Reported and offered for export; the fire is <em>not</em> quietly relit at full strength.</td></tr>
-  </table>
+  <div class="cols">
+    <div>
+      <h2>Why there is no streak</h2>
+      <p>A streak turns a bad week into a loss. This app counts nothing about you: not visits, not minutes, not consecutive days.</p>
+    </div>
+    <div>
+      <h2>What it refuses</h2>
+      <p>No notifications, no nudges, no “we miss you”. If it is closed, it is silent — and opening it again is not a fresh start, just a return.</p>
+    </div>
+    <div>
+      <h2>Get it</h2>
+      <p>Offline, on your device, no account.</p>
+      <a class="go" href="play/index.html">open the room →</a>
+    </div>
+  </div>
 
-  <h2>How to run it</h2>
-  <ul>
-    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
-    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
-    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code> — the spec's countable “done means” is asserted there.</li>
-  </ul>
-
-    <div class="sponsor">
+  <div class="sponsor">
     <strong>Sponsor this app.</strong> It is free, offline and has no account. If it earned its keep:
     <a href="https://github.com/sponsors/drsamonline">github.com/sponsors/drsamonline</a>
   </div>
-<footer>
-    PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin ·
-    <a href="https://github.com/drsamonline/app-calm-room">source</a>
-  </footer>
-</main>
-</body>
-</html>
+  <p class="foot">Windows · Android · Linux at <a href="https://github.com/drsamonline/app-calm-room/releases/tag/app-latest">app-latest</a> ·
+  PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin</p>
+</div></body></html>
